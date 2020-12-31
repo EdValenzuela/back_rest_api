@@ -1,14 +1,15 @@
-//morgan : middleware detalles de servicios
-//bodyParser : formato json de respuestas
-//cookieParser: guardar cookies
-
 const express = require('express');
-const routes = require('./routes');
 const mongoose = require('mongoose');
 const expressValidator = require("express-validator");
 require('dotenv').config({
     path: 'variables.env'
 });
+
+//routes
+const clientesRoutes = require("./routes/clientes");
+const pedidosRoutes = require("./routes/pedidos");
+const productosRoutes = require("./routes/productos");
+const usuariosRoutes = require("./routes/usuarios");
 
 // Cors para el Http
 const cors = require('cors');
@@ -52,7 +53,10 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //rutas de la app
-app.use('/', routes());
+app.use('/', clientesRoutes);
+app.use('/', pedidosRoutes);
+app.use('/', productosRoutes);
+app.use('/', usuariosRoutes);
 
 //carpeta publica de las imagenes
 app.use(express.static('uploads'));
