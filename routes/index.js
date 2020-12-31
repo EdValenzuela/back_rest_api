@@ -6,6 +6,8 @@ const productosController = require('../controllers/productosController');
 const pedidosController = require('../controllers/pedidosController');
 const usuariosController = require('../controllers/usuariosController');
 
+const { userRegisterValidator, userLoginValidator } = require("../validator");
+
 //middle para seguridad
 const {verificarToken, verificarRolAdmin} = require('../middleware/auth');
 
@@ -41,8 +43,8 @@ module.exports = function(){
     router.delete('/pedidos/:id', pedidosController.deletePedido);
     
     /* ROLES USUARIOS */
-    router.post('/crear-cuenta', usuariosController.registerUser);
-    router.post('/iniciar-sesion', usuariosController.authenticateUser);
+    router.post('/crear-cuenta', userRegisterValidator, usuariosController.registerUser);
+    router.post('/iniciar-sesion', userLoginValidator, usuariosController.authenticateUser);
     return router;
 }
 
