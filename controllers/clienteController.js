@@ -10,7 +10,9 @@ exports.newClient = async (req, res, next) => {
             message : 'Se agrego un nuevo cliente'
         });
     } catch (error) {
-        res.send(error);
+        res.json({
+            message: 'Hubo un error o cliente ya registrado con el email!'
+        });
         next();
     }
 }

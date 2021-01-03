@@ -7,7 +7,7 @@ const productosController = require('../controllers/productosController');
 const {verificarToken, verificarRolAdmin} = require('../middleware/auth');
 
 /* PRODUCTOS */
-router.post('/productos', 
+router.post('/productos',
     productosController.upFile,
     productosController.newProduct
 );

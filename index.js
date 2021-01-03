@@ -1,9 +1,6 @@
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./config/database');
 const expressValidator = require("express-validator");
-require('dotenv').config({
-    path: 'variables.env'
-});
 
 //routes
 const clientesRoutes = require("./routes/clientes");
@@ -14,30 +11,8 @@ const usuariosRoutes = require("./routes/usuarios");
 // Cors para el Http
 const cors = require('cors');
 
-//conectar mongodb
-// new
-const db = async () => {
-    try {
-        const success = await mongoose.connect(process.env.DB_URL,{
-            useNewUrlParser: true,
-            useUnifiedTopology: true,
-            useCreateIndex: true,
-            useFindAndModify: false
-        });
-        console.log('DB Connected');
-    } catch (error) {
-        console.log(`Error DB ${error}`);
-    }
-}
-db();
-
-// old
-// mongoose.Promise = global.Promise;
-// mongoose
-//     .connect(process.env.DB_URL, {
-//         useNewUrlParser: true,
-//         useCreateIndex: true
-//     }).then(() => console.log("DB Connected"));
+//conectar Database
+connectDB();
 
 //crear el servidor
 const app = express();
